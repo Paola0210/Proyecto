@@ -696,6 +696,12 @@ $lang['Number of rooms']="Number of rooms";
 $lang['Number of bathrooms']="Number of bathrooms";
 $lang['Air type']="Air type";
 $lang['Flat']="Flat";
-
-
-
+$lang['Nombre']="Name";
+$lang['Numero1']="Number1";
+$lang['Orientacion']="Orientation";
+$lang['Numero2']="Number2";
+$lang['Adicional1']="Additional1";
+$lang['Adicional2']="Additional2";
+$lang['Estado']="Status";
+$lang['Corporation Buildings']="Corporation Buildings";
+$lang['Actions']="Actions";

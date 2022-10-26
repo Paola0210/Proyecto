@@ -776,6 +776,16 @@ class Clientgroup extends CI_Controller
         $this->load->view('groups/groupview', $data);
         $this->load->view('fixed/footer');
     }
+    public function buildings_corporation(){
+        $head['title'] = 'Buildings Corporation';
+        
+        $data['group'] = $this->clientgroup->details($_GET['id']);
+        
+        $data['lista_edificios_corporacion']=$this->customers->get_edificios_corporacion($_GET['id']);  
+        $this->load->view('fixed/header', $head);
+        $this->load->view('groups/buildings_corporation', $data);
+        $this->load->view('fixed/footer');
+    }
      
      public function groupedificio()
     {
