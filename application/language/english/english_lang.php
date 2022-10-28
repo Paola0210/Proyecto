@@ -704,4 +704,16 @@ $lang['Adicional1']="Additional1";
 $lang['Adicional2']="Additional2";
 $lang['Estado']="Status";
 $lang['Corporation Buildings']="Corporation Buildings";
+$lang['Buildings']="Buildings";
+$lang['Corporation']="Corporation";
 $lang['Actions']="Actions";
+$lang['Apartaments Building']="Apartaments Building";
+$lang['Arrendatario']="Arrendatario";
+$lang['Cuartos']="Cuartos";
+$lang['Piso']="Piso";
+$lang['Aire']="Aire";
+$lang['Banos']="Baños";
+$lang['Descripcion']="Descripcion";
+$lang['Estado']="Estado";
+$lang['ID']="ID";
+

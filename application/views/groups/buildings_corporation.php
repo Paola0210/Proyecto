@@ -143,7 +143,7 @@
                         
                     
         <div class="grid_3 grid_4">
-            <h5><?php echo $this->lang->line('Corporation Buildings') . '- ' . $group['title'] ?></h5> 
+            <h5><?php echo "<a href='".base_url()."clientgroup'>".$this->lang->line('Corporation')."</a> ". $this->lang->line('Buildings') . ' - ' . $group['title'] ?></h5> 
 			
                        <!-- <a href=""  class="btn btn-primary btn-md" onclick="abrir_modal_sms(event)"><i
                         class="fa fa-envelope"></i>Enviar mensajes de Grupo</a>
@@ -180,7 +180,7 @@
                             echo "<td>".$v1['adicional1']."</td>";
                             echo "<td>".$v1['adicional2']."</td>";
                             echo "<td>".$v1['estado']."</td>";
-                            echo "<td><a class='btn btn-success btn-xs'><i class='icon-file-text'></i>". $this->lang->line('View') ."</a>&nbsp;<a class='btn btn-warning btn-xs'><i class='icon-pencil'></i>". $this->lang->line('Edit') ."</a></td>";
+                            echo "<td><a href='".base_url()."clientgroup/apartments_building?id=".$v1['id']."' class='btn btn-success btn-xs'><i class='icon-file-text'></i>". $this->lang->line('View') ."</a>&nbsp;<a class='btn btn-warning btn-xs'><i class='icon-pencil'></i>". $this->lang->line('Edit') ."</a></td>";
                         echo "</tr>";
                     $i++;} ?>
                 </tbody>

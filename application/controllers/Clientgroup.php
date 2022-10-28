@@ -786,13 +786,92 @@ class Clientgroup extends CI_Controller
         $this->load->view('groups/buildings_corporation', $data);
         $this->load->view('fixed/footer');
     }
+    public function apartments_building(){
+        $head['title'] = 'Apartments Building';
+        $data['id']=$_GET['id'];
+        $data['edificio']=$this->db->get_where("edificios_tb",array("id"=>$_GET['id']))->row();
+
+        $data['corporacion'] = $this->clientgroup->details($data['edificio']->id_corporacion);
+        
+        
+        $this->load->view('fixed/header', $head);
+        $this->load->view('groups/apartments_building', $data);
+        $this->load->view('fixed/footer');   
+    }
      
      public function groupedificio()
     {
      
      $data['edificios_corporacion'] = $this->customers->get_edificio($_GET['nombre_edificio']); 
      }
+public function apartaments_list(){
+    $this->load->model("Apartamentos_model","apartamentos");
+    $list = $this->apartamentos->get_datatables();
+    $data = array();
+    $no = $this->input->post('start');
+    setlocale(LC_TIME, "spanish");
 
+    foreach ($list as $key => $value) {            
+            $no++;  
+            $row = array();
+            $row[]=$no;
+            $row[]=$value->id;
+            $row[]=$value->nombre;
+            $row[]=$value->id_arrendatario;
+            $row[]=$value->cuartos;
+            $row[]=$value->piso;
+            $row[]=$value->aire;
+            $row[]=$value->banos;
+            $row[]=$value->estado;
+            $row[]=$value->descripcion_add;
+            $row[]="<a href='#' class='btn-small btn-info asignar-cliente' data-id-apartamento='".$value->id."'><i class='icon-book' ></i>Asignar Cliente</a>&nbsp<a href='#' class='btn-small btn-warning btn-xs'><i class='icon-pencil' ></i>Edit</a>";
+            
+            //$row[]="<div style='text-align:center'><a class='btn-small btn-info ver-mas'  data-descripcion='".$value->descripcion."'><i class='icon-book'></i></a></div>";
+            $data[]=$row;
+
+    }
+        $output = array(
+            "draw" => $_POST['draw'],
+            "recordsTotal" => $this->apartamentos->count_all(),
+            "recordsFiltered" => $this->apartamentos->count_filtered(),
+            "data" => $data,
+        );
+        //output to json format
+        echo json_encode($output);
+        
+}
+public function clientes_a_asignar(){
+    $this->load->model("Clientes1_model","clientes");
+    $list = $this->clientes->get_datatables();
+    $data = array();
+    $no = $this->input->post('start');
+    setlocale(LC_TIME, "spanish");
+
+    foreach ($list as $key => $value) {            
+            $no++;  
+            $row = array();
+            //$row[]=$no;
+            $row[]=$value->abonado;
+            $row[]=$value->name." ".$value->dosnombre." ".$value->unoapellido." ".$value->dosapellido;
+            $row[]=$value->tipo_documento;
+            $row[]=$value->documento;
+            $row[]=$value->usu_estado;
+            $row[]="<a target='_blank' title='Ir al perfil del usuario' href='".base_url()."customers/view?id=".$value->id."' class='btn-small btn-info ver-cliente-tb-cliente'><i class='icon-book' ></i></a>&nbsp<a title='Asignar Cliente al Apartamento' class='btn-small btn-info asignar-cliente-tb-cliente'><i class='icon-pencil' ></i>As.</a>";
+            //$row[]="<a href='#' class='btn-small btn-info asignar-cliente' data-id-apartamento='".$value->id."'><i class='icon-book' ></i>Asignar Cliente</a>&nbsp<a href='#' class='btn-small btn-warning btn-xs'><i class='icon-pencil' ></i>Edit</a>";
+            
+            //$row[]="<div style='text-align:center'><a class='btn-small btn-info ver-mas'  data-descripcion='".$value->descripcion."'><i class='icon-book'></i></a></div>";
+            $data[]=$row;
+
+    }
+        $output = array(
+            "draw" => $_POST['draw'],
+            "recordsTotal" => $this->clientes->count_all(),
+            "recordsFiltered" => $this->clientes->count_filtered(),
+            "data" => $data,
+        );
+        //output to json format
+        echo json_encode($output);
+}
     //datatable
     public function grouplist()
 
