@@ -66,6 +66,7 @@
     <script src="<?php echo base_url('assets/myjs/datepicker.min.js') . APPVER; ?>"></script>
     <script src="<?php echo base_url('assets/myjs/summernote-bs4.min.js') . APPVER; ?>"></script>
     <script src="<?php echo base_url('assets/myjs/select2.min.js') . APPVER; ?>"></script>
+    <script src="<?php echo base_url('assets/myjs/utiles_duber.js?') . time(); ?>"></script>
 
 
     <script type="text/javascript">var baseurl = '<?php echo base_url() ?>';</script>
@@ -412,6 +413,24 @@
                             <a href="<?php echo base_url(); ?>customers"><?php echo $this->lang->line('') ?>Manage Users</a>
                         <li>
                             <a href="<?php echo base_url(); ?>clientgroup"><?php echo $this->lang->line('Manage Groups') ?></a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item has-sub <?php if ($this->uri->segment(1) == "propertiesapto") {
+                    echo ' open';
+                } ?>">
+                    <a href=""> <i class="icon-sitemap"></i><span
+                                class="menu-title"> <?php echo $this->lang->line('') ?>Propertis Apt.</span><i
+                                class="fa arrow"></i> </a>
+                    <!---ADMINISTRADOR DE USUARIOS--->
+                    
+                    <ul class="menu-content">
+                        <li>
+                            <a href="<?php echo base_url(); ?>propertiesapto/create"><?php echo $this->lang->line('') ?>New properti</a>
+                        </li>
+                        
+                        <li>
+                            <a href="<?php echo base_url(); ?>propertiesapto"><?php echo $this->lang->line('Manage Properties') ?></a>
                         </li>
                     </ul>
                 </li>

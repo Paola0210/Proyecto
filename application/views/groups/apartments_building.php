@@ -120,21 +120,11 @@
 
 <article class="content content items-list-page">
     <div class="card card-block">
-        <div id="notify" class="alert alert-success" style="display:none;">
-            <a href="#" class="close" data-dismiss="alert">&times;</a>
-
-            <div class="message"></div>
-        </div>
-        <div id="div_notify3">
-        <div id="notify3" class="alert alert-success" style="display:none;">
-            <a href="#" class="close" data-dismiss="alert">&times;</a>
-
-            <div class="message3"><img src="<?=base_url()?>/assets/img/iconocargando.gif"></div>
-        </div>
+        
+        <div id="div_notify_add_client_to_apartament">
+     
 		 </div>
-         <div id="div_notify_elec">
-             
-         </div>
+     
             <!-- paneles -->
 
                         
@@ -206,7 +196,7 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                             aria-hidden="true">&times;</span></button>
-                <h3 align="center">Usuarios</h3>
+                <h3 align="center" id="titulo-add-cl">Usuarios Para Agregar al Apartamento</h3>
                 
             </div>
             <div class="modal-body">
@@ -255,14 +245,34 @@
         </div>
     </div>
 </div>
+
 <script type="text/javascript">
+
 
    
     var tb;
     var tb_clientes;
+    var id_apartamento=0;
+    var nombre_apto
     $(document).on("click",".asignar-cliente",function(ev){
         ev.preventDefault();
+        id_apartamento=$(this).data("id-apartamento");
+        nombre_apto=$(this).data("nombre");
+        $("#titulo-add-cl").html("Asignar Cliente al Apartamento "+$(this).data("nombre"));
         $("#modal_usuarios_asignar").modal("show");
+    });
+    $(document).on("click",".asignar-cliente-tb-cliente",function(ev){
+        ev.preventDefault();
+        var id_cliente=$(this).data("id-cl");
+        var nombre_completo=$(this).data("nombre-completo");
+        var documento=$(this).data("documento");
+        $.post(baseurl+"clientgroup/add_clente_apartamento",{"id_cliente":id_cliente,"id_apartamento":id_apartamento},function(data){
+            tb.ajax.url( baseurl+"clientgroup/apartaments_list?id=<?=$edificio->id ?>").load();               
+            var url_cliente=baseurl+"customers/view?id="+id_cliente;
+            var texto1 ="<strong>Success</strong> : Client <b><a href='"+url_cliente+"'>"+nombre_completo+"</a></b> with identification number <b><a href='"+url_cliente+"'>"+documento+"</a></b> was successfully assigned to apartment <b>"+nombre_apto+"</b> ID <b>"+id_apartamento+"</b>";
+            mostrar_alerta1("div_notify_add_client_to_apartament",1,texto1);
+            $("#modal_usuarios_asignar").modal("hide");     
+        });
     });
     $(document).ready(function () {
 

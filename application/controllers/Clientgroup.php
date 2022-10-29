@@ -817,14 +817,20 @@ public function apartaments_list(){
             $row[]=$no;
             $row[]=$value->id;
             $row[]=$value->nombre;
-            $row[]=$value->id_arrendatario;
+            if($value->id_arrendatario!=0){
+                $cliente =$this->db->get_where("customers",array("id"=>$value->id_arrendatario))->row();
+                $nombre_completo=$cliente->name." ".$cliente->unoapellido;    
+                $row[]="<a href='".base_url()."customers/view?id=".$value->id_arrendatario."'>".$nombre_completo."</a>";    
+            }else{
+                $row[]="Disponible";    
+            }
             $row[]=$value->cuartos;
             $row[]=$value->piso;
             $row[]=$value->aire;
             $row[]=$value->banos;
             $row[]=$value->estado;
             $row[]=$value->descripcion_add;
-            $row[]="<a href='#' class='btn-small btn-info asignar-cliente' data-id-apartamento='".$value->id."'><i class='icon-book' ></i>Asignar Cliente</a>&nbsp<a href='#' class='btn-small btn-warning btn-xs'><i class='icon-pencil' ></i>Edit</a>";
+            $row[]="<a href='#' class='btn-small btn-info asignar-cliente' data-id-apartamento='".$value->id."' data-nombre='".$value->nombre."'><i class='icon-book' ></i>Asignar Cliente</a>&nbsp<a href='#' class='btn-small btn-warning btn-xs'><i class='icon-pencil' ></i>Edit</a>";
             
             //$row[]="<div style='text-align:center'><a class='btn-small btn-info ver-mas'  data-descripcion='".$value->descripcion."'><i class='icon-book'></i></a></div>";
             $data[]=$row;
@@ -851,12 +857,13 @@ public function clientes_a_asignar(){
             $no++;  
             $row = array();
             //$row[]=$no;
+            $nombre_completo=$value->name." ".$value->dosnombre." ".$value->unoapellido." ".$value->dosapellido;
             $row[]=$value->abonado;
-            $row[]=$value->name." ".$value->dosnombre." ".$value->unoapellido." ".$value->dosapellido;
+            $row[]=$nombre_completo;
             $row[]=$value->tipo_documento;
             $row[]=$value->documento;
             $row[]=$value->usu_estado;
-            $row[]="<a target='_blank' title='Ir al perfil del usuario' href='".base_url()."customers/view?id=".$value->id."' class='btn-small btn-info ver-cliente-tb-cliente'><i class='icon-book' ></i></a>&nbsp<a title='Asignar Cliente al Apartamento' class='btn-small btn-info asignar-cliente-tb-cliente'><i class='icon-pencil' ></i>As.</a>";
+            $row[]="<a target='_blank' title='Ir al perfil del usuario' href='".base_url()."customers/view?id=".$value->id."' class='btn-small btn-info ver-cliente-tb-cliente'><i class='icon-book' ></i></a>&nbsp<a data-id-cl='".$value->id."' data-nombre-completo='".$nombre_completo."' data-documento='".$value->documento."' title='Asignar Cliente al Apartamento' class='btn-small btn-success asignar-cliente-tb-cliente' href='#'><i class='icon-home' ></i></a>";
             //$row[]="<a href='#' class='btn-small btn-info asignar-cliente' data-id-apartamento='".$value->id."'><i class='icon-book' ></i>Asignar Cliente</a>&nbsp<a href='#' class='btn-small btn-warning btn-xs'><i class='icon-pencil' ></i>Edit</a>";
             
             //$row[]="<div style='text-align:center'><a class='btn-small btn-info ver-mas'  data-descripcion='".$value->descripcion."'><i class='icon-book'></i></a></div>";
@@ -871,6 +878,17 @@ public function clientes_a_asignar(){
         );
         //output to json format
         echo json_encode($output);
+}
+public function add_clente_apartamento(){
+    $id_cliente=$this->input->post("id_cliente");
+    $id_apartamento=$this->input->post("id_apartamento");
+    $result=$this->db->update("apartamentos",array("id_arrendatario"=>$id_cliente,"estado"=>"Ocupado"),array("id"=>$id_apartamento));
+    if($result){
+        echo "success";
+    }else{
+        echo "error";
+    }
+    
 }
     //datatable
     public function grouplist()

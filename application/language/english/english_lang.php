@@ -716,4 +716,5 @@ $lang['Banos']="Baños";
 $lang['Descripcion']="Descripcion";
 $lang['Estado']="Estado";
 $lang['ID']="ID";
+$lang['Manage Properties']="Manage Properties";
 
