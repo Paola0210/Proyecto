@@ -1,4 +1,32 @@
 <!-- BEGIN VENDOR JS-->
+<div id="modal-alertas-publico" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                
+                <h4 class="modal-title" align="center">Notification</h4>
+            </div>
+            <div class="modal-body">
+                    <h5 id="texto-modal-alertas-publico"></h5>               
+            </div>
+            <div class="modal-footer">
+                
+                
+                <button type="button" class="btn btn-primary" onclick="$('#modal-alertas-publico').modal('hide')">Accept</button>
+                
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    <?php if(isset($msj77)){
+        echo "$('#modal-alertas-publico').modal('show');";
+        echo "$('#texto-modal-alertas-publico').html('".$msj77."');";
+    } ?>
+
+</script>
 <script type="text/javascript">
 
     $('[data-toggle="datepicker"]').datepicker({autoHide: true, format: '<?php echo $this->config->item('dformat2'); ?>'});

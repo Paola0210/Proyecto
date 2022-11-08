@@ -1,0 +1,1 @@
+CREATE TABLE `eeuu`.`propiedades_apartamentos` (`id` INT NOT NULL AUTO_INCREMENT , `nombre` VARCHAR(150) NOT NULL , `tipo` ENUM('numeric','yes_or_no','List') NOT NULL , `maximo` INT NULL , `lista_de_elementos` VARCHAR(200) NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;

@@ -24,7 +24,7 @@ class Propertiesapto extends CI_Controller
     {
 
         parent::__construct();
-        //$this->load->model('clientgroup_model', 'clientgroup');
+        $this->load->model('Propertiesapto_model', 'properties_apto');
         
                
         $this->load->library("Aauth");
@@ -45,6 +45,7 @@ class Propertiesapto extends CI_Controller
         
         //$head['usernm'] = $this->aauth->get_user()->username;
         $head['title'] = 'Properties';
+        $data['lista_de_propiedades']=$this->properties_apto->get_properties();
         $this->load->view('fixed/header', $head);
         $this->load->view('properties/index', $data);
         $this->load->view('fixed/footer');
@@ -57,6 +58,33 @@ class Propertiesapto extends CI_Controller
         $this->load->view('fixed/header', $head);
         $this->load->view('properties/new', $data);
         $this->load->view('fixed/footer');
+    }
+    public function new_properti(){
+        $head['title'] = 'Properties';
+
+        
+        $data_f=array("msj77"=>"Propiedad Creada");
+        if(!$this->properties_apto->save()){
+            $data_f=array("msj77"=>"A property with the name already exists : ".$this->input->post("nombre"));
+        }
+
+        $this->load->view('fixed/header', $head);
+        $this->load->view('properties/new', $data);
+        
+        $this->load->view('fixed/footer',$data_f);
+
+
+    }
+    public function delete_i()
+    {
+        $id = $this->input->post('deleteid');
+        if ($id != 0) {
+            $this->db->delete('propiedades_apartamentos', array('id' => $id));
+            
+            echo json_encode(array('status' => 'Success', 'message' => $this->lang->line('DELETED')));
+        }else {
+            echo json_encode(array('status' => 'Error', 'message' => $this->lang->line('ERROR')));
+        }
     }
     
 }
